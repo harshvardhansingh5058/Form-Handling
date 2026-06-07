@@ -404,6 +404,8 @@ a:hover {
   overflow: hidden;
   box-shadow: var(--shadow-md);
   max-height: 600px;
+  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .table-responsive-wrapper::-webkit-scrollbar {
@@ -432,6 +434,7 @@ a:hover {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 0;
+  min-width: max-content;
 }
 
 .users-table thead {
@@ -472,7 +475,7 @@ a:hover {
   color: var(--dark-text);
   border: none;
   vertical-align: middle;
-  word-break: break-word;
+  white-space: nowrap;
 }
 
 /* Table column widths */
@@ -484,7 +487,7 @@ a:hover {
 .users-table th:nth-child(6), .users-table td:nth-child(6) { width: 16%; }
 
 .users-table tbody td:first-child {
-  color: var(--primary-sage);
+  color: var(--dark-text);
   font-weight: 700;
   font-family: 'Poppins', sans-serif;
 }
@@ -499,9 +502,10 @@ a:hover {
 }
 
 .td-phone {
-  color: var(--warm-taupe);
-  font-size: 0.85rem;
-  font-family: 'Courier New', monospace;
+   color: var(--dark-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 0.3px;
 }
 
@@ -921,3 +925,63 @@ a:hover {
     padding: 1.5rem 1rem 1rem !important;
   }
 }
+
+
+/* Horizontal + Vertical Scrollbar */
+.table-responsive-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    90deg,
+    #C0E1D2,
+    #DC9B9B
+  );
+}
+
+/* ============================================
+   BADGE TEXT IMPROVEMENTS
+   ============================================ */
+
+
+/* Slightly darker department colors */
+
+.dept-IT {
+  color: #7FAF9A !important;
+}
+
+.dept-HR {
+  color: #C67B7B !important;
+}
+
+.dept-Finance {
+  color: #B07B46 !important;
+}
+
+.dept-Marketing {
+  color: #4F7F6D !important;
+}
+
+.dept-Operations {
+  color: #7FAF9A !important;
+}
+
+.dept-Sales {
+  color: #C67B7B !important;
+}
+
+.dept-Design {
+  color: #B07B46 !important;
+}
+
+/* Slightly darker status colors */
+
+.status-Active {
+  color: #4F7F6D !important;
+}
+
+.status-Inactive {
+  color: #A04A45 !important;
+}
+
+.status-Pending {
+  color: #B07B46 !important;
+}
+

@@ -28,7 +28,7 @@ export default function UserTable({ data = [] }) {
 
                   <td className="td-email">{user.email}</td>
 
-                  <td className="td-phone">{user.Mobile_number}</td>
+                  <td className="td-phone f-weight">{user.Mobile_number}</td>
 
                   <td>
                     <span className={`dept-badge dept-${user.department}`}>

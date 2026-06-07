@@ -36,6 +36,13 @@ export default function UserForm({ setFormData }) {
   }
 
   const handleValidation = (e) => {
+
+    if (e.target.name === "Mobile_number") {
+      e.target.value = e.target.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
+    }
+
     if (e.target.value == '') {
       setErrors([...errors, e.target.name])
     } else {
