@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function UserForm() {
+export default function UserForm({ setFormData }) {
   const [errors, setErrors] = useState([])
 
   const handleSubmit = (e) => {
@@ -17,17 +17,27 @@ export default function UserForm() {
       }
     });
     setErrors([...errorNames])
-    // console.log(errorNames)
+
     if (errorNames.length == 0) {
-      form.reset()
+      const formValues = new FormData(e.target);
+      const userObj = Object.fromEntries(formValues);
+      setFormData((prev) => {
+        const update = [...prev, userObj]
+        localStorage.setItem(
+          "users",
+          JSON.stringify(update)
+        )
+        // console.log(update) //  data...
+        return update;
+      });
+      form.reset();
     }
+
   }
 
   const handleValidation = (e) => {
-
     if (e.target.value == '') {
-      setErrors([...errors,e.target.name])
-      
+      setErrors([...errors, e.target.name])
     } else {
       setErrors(
         errors.filter(
@@ -47,7 +57,7 @@ export default function UserForm() {
         <div className="card-body p-4">
           <form onSubmit={handleSubmit} autoComplete="off">
             <div className="mb-3">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>First Name</label>
+              <label className="form-label">First Name</label>
               <input
                 type="text"
                 name="full_name"
@@ -56,15 +66,14 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
                 placeholder="Enter first name"
                 onKeyUp={handleValidation}
               />
-              {errors.includes('full_name') && <small className="text-danger"> Name Required </small>}
+              {errors.includes('full_name') && <small className="text-danger">Name Required</small>}
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>Last Name</label>
+              <label className="form-label">Last Name</label>
               <input
                 type="text"
                 name="last_name"
@@ -73,15 +82,14 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
                 placeholder="Enter last name"
                 onKeyUp={handleValidation}
               />
-              {errors.includes('last_name') && <small className="text-danger"> Last Required</small>}
+              {errors.includes('last_name') && <small className="text-danger">Last name Required</small>}
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>Email Address</label>
+              <label className="form-label">Email Address</label>
               <input
                 type="email"
                 name="email"
@@ -90,16 +98,14 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
                 placeholder="Enter email address"
                 onKeyUp={handleValidation}
-
               />
               {errors.includes('email') && <small className="text-danger">Valid email required</small>}
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>Phone Number</label>
+              <label className="form-label">Phone Number</label>
               <input
                 type="tel"
                 name="Mobile_number"
@@ -108,7 +114,6 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
                 placeholder="Enter phone number"
                 onKeyUp={handleValidation}
               />
@@ -116,7 +121,7 @@ export default function UserForm() {
             </div>
 
             <div className="mb-3">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>Department</label>
+              <label className="form-label">Department</label>
               <select
                 name="department"
                 onChange={handleValidation}
@@ -125,7 +130,6 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
               >
                 <option value="">Select a department</option>
                 <option value="Sales">Sales</option>
@@ -138,7 +142,7 @@ export default function UserForm() {
             </div>
 
             <div className="mb-4">
-              <label className="form-label fw-bold" style={{ color: 'white' }}>Status</label>
+              <label className="form-label">Status</label>
               <select
                 name="status"
                 onChange={handleValidation}
@@ -147,17 +151,16 @@ export default function UserForm() {
                     ? "form-control border-danger"
                     : "form-control"
                 }
-                style={{ borderRadius: '8px', padding: '10px 15px', backgroundColor: '#2d3541', color: '#ffffff' }}
               >
                 <option value="">Select Status</option>
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
               </select>
-              {errors.includes('status') && <small className="text-danger">status required</small>}
+              {errors.includes('status') && <small className="text-danger">Status required</small>}
             </div>
 
             <div className="d-grid gap-2">
-              <button className="btn btn-submit" type="submit" style={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', border: 'none', padding: '10px', color: 'white', fontWeight: 'bold', borderRadius: '8px' }}>
+              <button className="btn btn-submit" type="submit">
                 ✓ Submit
               </button>
             </div>

@@ -1,58 +1,7 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
 
-export default function UserTable() {
-  const dummyUsers = [
-    {
-      id: 1,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      phone: '9999999999',
-      country: 'United States',
-      state: 'California'
-    },
-    {
-      id: 2,
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      phone: '8888888888',
-      country: 'Canada',
-      state: 'Ontario'
-    },
-    {
-      id: 3,
-      name: 'Michael Johnson',
-      email: 'michael.j@example.com',
-      phone: '7777777777',
-      country: 'Australia',
-      state: 'New South Wales'
-    },
-    {
-      id: 4,
-      name: 'Sarah Williams',
-      email: 'sarah.w@example.com',
-      phone: '6666666666',
-      country: 'India',
-      state: 'Maharashtra'
-    },
-    {
-      id: 5,
-      name: 'David Brown',
-      email: 'david.brown@example.com',
-      phone: '5555555555',
-      country: 'United Kingdom',
-      state: 'England'
-    },
-    {
-      id: 6,
-      name: 'Emily Davis',
-      email: 'emily.davis@example.com',
-      phone: '4444444444',
-      country: 'Germany',
-      state: 'Berlin'
-    }
-  ]
-
+export default function UserTable({ data = [] }) {
   return (
     <div className="users-table-wrapper">
       <div className="table-responsive-wrapper">
@@ -63,21 +12,45 @@ export default function UserTable() {
               <th>NAME</th>
               <th>EMAIL</th>
               <th>MOBILE NUMBER</th>
-              <th>COUNTRY</th>
-              <th>STATE</th>
+              <th>DEPARTMENT</th>
+              <th>STATUS</th>
             </tr>
           </thead>
           <tbody>
-            {dummyUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>{user.phone}</td>
-                <td>{user.country}</td>
-                <td>{user.state}</td>
+            {data.length > 0 ? (
+              data.map((user, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+
+                  <td className="td-name">
+                    {user.full_name} {user.last_name}
+                  </td>
+
+                  <td className="td-email">{user.email}</td>
+
+                  <td className="td-phone">{user.Mobile_number}</td>
+
+                  <td>
+                    <span className={`dept-badge dept-${user.department}`}>
+                      {user.department}
+                    </span>
+                  </td>
+
+                  <td>
+                    <span className={`status-badge status-${user.status}`}>
+                      {user.status}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="no-data">
+                  <div className="no-data-icon">📭</div>
+                  <div className="no-data-text">No Users Added Yet</div>
+                </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </Table>
       </div>
